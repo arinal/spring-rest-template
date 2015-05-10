@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.lamedh.pos.domain.repo.EmployeeRepository;
 
+import java.util.Optional;
+
 @Service
 public class EmployeeService {
     private EmployeeRepository employeeRepo;
@@ -24,8 +26,8 @@ public class EmployeeService {
         employeeRepo.save(employee);
     }
 
-    public Employee getById(int id) {
-        return employeeRepo.getOne(id);
+    public Optional<Employee> getById(int id) {
+        return Optional.ofNullable(employeeRepo.findOne(id));
     }
 
     public Iterable<Employee> getAll() {
