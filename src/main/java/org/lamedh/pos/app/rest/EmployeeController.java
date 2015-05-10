@@ -19,7 +19,7 @@ public class EmployeeController {
 
     @RequestMapping("/{id}")
     Employee get(@PathVariable int id) {
-        return id == 0 ? service.create() : service.getById(id);
+        return id == 0 ? service.create() : service.getById(id).orElseThrow(() -> new NotFoundException(id));
     }
 
     @RequestMapping
