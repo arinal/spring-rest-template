@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
-@MappedSuperclass @Access(AccessType.FIELD) @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@MappedSuperclass
+@Access(AccessType.FIELD)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public abstract class EntityBase {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;

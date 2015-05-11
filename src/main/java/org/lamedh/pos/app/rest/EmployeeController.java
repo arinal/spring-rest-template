@@ -1,15 +1,21 @@
 package org.lamedh.pos.app.rest;
 
+import org.lamedh.pos.app.rest.tools.NotFoundException;
 import org.lamedh.pos.domain.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.lamedh.pos.domain.Employee;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.transaction.Transactional;
 
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
+
     private EmployeeService service;
 
     @Autowired
@@ -25,5 +31,15 @@ public class EmployeeController {
     @RequestMapping
     Iterable<Employee> getAll() {
         return service.getAll();
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    ResponseEntity<?> save(@RequestBody Employee employee) {
+        Employee savedEmployee = service.save(employee);
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(ServletUriComponentsBuilder
+                .fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedEmployee).toUri());
+        return new ResponseEntity<>(null, httpHeaders, HttpStatus.CREATED);
     }
 }

@@ -6,8 +6,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
-        classpath("io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE")
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:0.5.0.RELEASE"
     }
 }
 
@@ -28,16 +28,21 @@ repositories {
     mavenCentral()
 }
 
-
 dependencies {
 //    compile("org.springframework.cloud:spring-cloud-starter-oauth2")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa")
-    compile("org.springframework.boot:spring-boot-starter-hateoas")
+    compile "org.springframework.boot:spring-boot-starter-data-jpa"
+    compile "org.springframework.boot:spring-boot-starter-hateoas"
 //    compile("org.springframework.boot:spring-boot-starter-security")
-    compile("org.springframework.boot:spring-boot-starter-web")
+    compile "org.springframework.boot:spring-boot-starter-web"
 //    compile("org.springframework.boot:spring-boot-starter-websocket")
-    runtime("com.h2database:h2")
-    testCompile("org.springframework.boot:spring-boot-starter-test") 
+
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr353:2.4.4"
+
+    runtime "com.h2database:h2"
+
+    testCompile "com.jayway.jsonpath:json-path-assert:0.5.5"
+    testCompile "com.jayway.jsonpath:json-path:0.9.1"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
 }
 
 //dependencyManagement {
@@ -46,13 +51,6 @@ dependencies {
 //	}
 //}
 
-
-eclipse {
-    classpath {
-         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
-         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
-    }
-}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'

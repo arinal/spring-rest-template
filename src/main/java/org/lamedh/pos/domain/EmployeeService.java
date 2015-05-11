@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Service
 public class EmployeeService {
+
     private EmployeeRepository employeeRepo;
 
     @Autowired
@@ -21,13 +22,13 @@ public class EmployeeService {
         return employee;
     }
 
-    public void save(Employee employee) {
+    public Employee save(Employee employee) {
         employee.setCode(generateCode());
-        employeeRepo.save(employee);
+        return employeeRepo.save(employee);
     }
 
     public Optional<Employee> getById(int id) {
-        return Optional.ofNullable(employeeRepo.findOne(id));
+        return employeeRepo.getById(id);
     }
 
     public Iterable<Employee> getAll() {
