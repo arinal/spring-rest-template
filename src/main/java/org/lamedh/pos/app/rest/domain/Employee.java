@@ -1,6 +1,10 @@
-package org.lamedh.pos.domain;
+package org.lamedh.pos.app.rest.domain;
 
-import org.lamedh.pos.common.EntityBase;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import org.lamedh.pos.app.rest.common.EntityBase;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -10,6 +14,9 @@ import java.time.LocalDate;
 public class Employee extends EntityBase {
     private String code;
     private String name;
+
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate birthDate;
 
     @Embedded

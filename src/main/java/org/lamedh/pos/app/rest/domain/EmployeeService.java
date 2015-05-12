@@ -1,13 +1,14 @@
-package org.lamedh.pos.domain;
+package org.lamedh.pos.app.rest.domain;
 
+import org.lamedh.pos.app.rest.domain.repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.lamedh.pos.domain.repo.EmployeeRepository;
 
 import java.util.Optional;
 
 @Service
 public class EmployeeService {
+
     private EmployeeRepository employeeRepo;
 
     @Autowired
@@ -21,13 +22,13 @@ public class EmployeeService {
         return employee;
     }
 
-    public void save(Employee employee) {
+    public Employee save(Employee employee) {
         employee.setCode(generateCode());
-        employeeRepo.save(employee);
+        return employeeRepo.save(employee);
     }
 
     public Optional<Employee> getById(int id) {
-        return Optional.ofNullable(employeeRepo.findOne(id));
+        return employeeRepo.getById(id);
     }
 
     public Iterable<Employee> getAll() {

@@ -1,16 +1,16 @@
-package org.lamedh.pos;
+package org.lamedh.pos.app.rest;
 
+import org.lamedh.pos.app.rest.domain.Address;
+import org.lamedh.pos.app.rest.domain.Employee;
+import org.lamedh.pos.app.rest.domain.repo.EmployeeRepository;
+import org.lamedh.pos.app.rest.domain.Product;
+import org.lamedh.pos.app.rest.domain.repo.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.lamedh.pos.domain.Employee;
-import org.lamedh.pos.domain.Product;
-import org.lamedh.pos.domain.repo.EmployeeRepository;
-import org.lamedh.pos.domain.repo.ProductRepository;
 
 import java.util.Arrays;
 
@@ -41,10 +41,12 @@ public class PosApplication {
             Employee suyama = new Employee();
             suyama.setCode("E01");
             suyama.setName("Suyama");
+            suyama.setAddress(new Address("Akihabara", "234", "Japan"));
 
             Employee nancy = new Employee();
             nancy.setCode("E02");
             nancy.setName("Nancy");
+            suyama.setAddress(new Address("Pisa", "346", "Italy"));
 
             employeeRepository.save(Arrays.asList(suyama, nancy));
         };
