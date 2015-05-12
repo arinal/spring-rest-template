@@ -2,8 +2,6 @@ package org.lamedh.pos.domain;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.lamedh.pos.app.rest.domain.Product;
-import org.lamedh.pos.app.rest.domain.Sale;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

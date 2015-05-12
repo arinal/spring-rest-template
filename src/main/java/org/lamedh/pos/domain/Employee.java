@@ -1,10 +1,10 @@
-package org.lamedh.pos.app.rest.domain;
+package org.lamedh.pos.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import org.lamedh.pos.app.rest.common.EntityBase;
+import org.lamedh.pos.common.domain.EntityBase;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -62,4 +62,3 @@ public class Employee extends EntityBase {
         return LocalDate.now().getYear() - birthDate.getYear();
     }
 }
-

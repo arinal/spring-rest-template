@@ -7,7 +7,8 @@ import org.junit.runner.RunWith;
 import org.lamedh.pos.PosApplication;
 import org.lamedh.pos.domain.Address;
 import org.lamedh.pos.domain.Employee;
-import org.lamedh.pos.domain.repo.EmployeeRepository;
+import org.lamedh.pos.domain.Product;
+import org.lamedh.pos.domain.repo.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -33,52 +34,52 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = PosApplication.class)
 @WebAppConfiguration
-public class EmployeeControllerTest {
+public class ProductControllerTest {
 
     @Test
-	public void employeeNotFound() throws Exception {
-		mockMvc.perform(get("/employee/99"))
-				.andExpect(status().isNotFound());
-	}
-
-    @Test
-    public void getEmployeeById() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee/" + suyama.getId()))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType("application/hal+json"))
-                .andExpect(jsonPath("$content.id", Matchers.is(suyama.getId())))
-                .andExpect(jsonPath("$content.name", Matchers.is(suyama.getName())));
+    public void getEntityNotFound() throws Exception {
+        mockMvc.perform(get("/product/99"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
-    public void getEmployees() throws Exception {
-        String employeesPath = "$._embedded.employeeList";
-        mockMvc.perform(get("/employee"))
+    public void getEntityById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/product" + "/" + momogi.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
-                .andExpect(jsonPath(employeesPath, hasSize(2)))
-                .andExpect(jsonPath(employeesPath + "[0].id", Matchers.is(suyama.getId())))
-                .andExpect(jsonPath(employeesPath + "[0].name", Matchers.is(suyama.getName())))
-                .andExpect(jsonPath(employeesPath + "[1].id", Matchers.is(nancy.getId())))
-                .andExpect(jsonPath(employeesPath + "[1].name", Matchers.is(nancy.getName())));
+                .andExpect(jsonPath("$content.id", Matchers.is(momogi.getId())))
+                .andExpect(jsonPath("$content.name", Matchers.is(momogi.getName())));
     }
 
     @Test
-    public void createEmployee() throws Exception {
+    public void getEntities() throws Exception {
+        String path = "$._embedded.productList";
+        mockMvc.perform(get("/product"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath(path, hasSize(2)))
+                .andExpect(jsonPath(path + "[0].id", Matchers.is(momogi.getId())))
+                .andExpect(jsonPath(path + "[0].name", Matchers.is(momogi.getName())))
+                .andExpect(jsonPath(path + "[1].id", Matchers.is(pepsi.getId())))
+                .andExpect(jsonPath(path + "[1].name", Matchers.is(pepsi.getName())));
+    }
+
+    @Test
+    public void createEntity() throws Exception {
         Employee newEmployee = new Employee();
         newEmployee.setAddress(new Address("Akihabara", "342", "Shibuya"));
         String json = json(newEmployee);
-        mockMvc.perform(post("/employee")
+        mockMvc.perform(post("/product")
                 .contentType("application/json")
                 .content(json))
                 .andExpect(status().isCreated());
     }
 
     @Test
-    public void editEmployee() throws Exception {
-        suyama.setName("Mikhail Suyama");
-        String json = json(suyama);
-        mockMvc.perform(post("/employee")
+    public void editEntity() throws Exception {
+        momogi.setName("Chiki");
+        String json = json(momogi);
+        mockMvc.perform(post("/product")
                 .contentType("application/json")
                 .content(json))
                 .andExpect(status().isOk());
@@ -91,22 +92,22 @@ public class EmployeeControllerTest {
     }
 
     @Before
-	public void setup() throws Exception {
-		mockMvc = webAppContextSetup(webApplicationContext).build();
+    public void setup() throws Exception {
+        mockMvc = webAppContextSetup(webApplicationContext).build();
 
-		employeeRepository.deleteAllInBatch();
+        productRepository.deleteAllInBatch();
 
-		suyama = new Employee();
-		suyama.setCode("E01");
-		suyama.setName("Suyama");
+        momogi = new Product();
+        momogi.setCode("P01");
+        momogi.setName("Momogi");
 
-		nancy = new Employee();
-		nancy.setCode("E02");
-		nancy.setName("Nancy");
+        pepsi = new Product();
+        pepsi.setCode("P02");
+        pepsi.setName("Pepsi");
 
-		suyama = employeeRepository.save(suyama);
-		nancy = employeeRepository.save(nancy);
-	}
+        momogi = productRepository.save(momogi);
+        pepsi = productRepository.save(pepsi);
+    }
 
     @Autowired
     void setConverters(HttpMessageConverter<?>[] converters) {
@@ -115,14 +116,14 @@ public class EmployeeControllerTest {
         assertNotNull("the JSON message converter must not be null", json2Http);
     }
 
-	private MockMvc mockMvc;
-	private Employee suyama;
-    private Employee nancy;
+    private MockMvc mockMvc;
+    private Product momogi;
+    private Product pepsi;
 
     private HttpMessageConverter json2Http;
 
-	@Autowired
-	private EmployeeRepository employeeRepository;
-	@Autowired
-	private WebApplicationContext webApplicationContext;
+    @Autowired
+    private ProductRepository productRepository;
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 }

@@ -1,4 +1,4 @@
-package org.lamedh.pos.app.rest.app.rest.tools;
+package org.lamedh.pos.app.rest.tools;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(int id) {
@@ -6,6 +6,7 @@ public class NotFoundException extends RuntimeException {
     }
 
     public NotFoundException(String id) {
-        super("could not find entity with id '" + id + "'");
+        super("could not find entity with id \'" + id + "\'");
     }
 }
+

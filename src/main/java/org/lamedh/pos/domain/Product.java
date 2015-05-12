@@ -1,6 +1,6 @@
-package org.lamedh.pos.app.rest.domain;
+package org.lamedh.pos.domain;
 
-import org.lamedh.pos.app.rest.common.EntityBase;
+import org.lamedh.pos.common.domain.EntityBase;
 
 import javax.persistence.Entity;
 import java.math.BigDecimal;

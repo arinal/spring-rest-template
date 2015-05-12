@@ -1,6 +1,7 @@
-package org.lamedh.pos.app.rest.domain;
+package org.lamedh.pos.domain;
 
-import org.lamedh.pos.app.rest.domain.repo.EmployeeRepository;
+import org.lamedh.pos.common.domain.DomainService;
+import org.lamedh.pos.domain.repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements DomainService<Employee> {
 
     private EmployeeRepository employeeRepo;
 
@@ -35,6 +36,10 @@ public class EmployeeService {
 
     public Page<Employee> getAll(Pageable page) {
         return employeeRepo.findAll(page);
+    }
+
+    public void delete(int id) {
+        employeeRepo.delete(id);
     }
 
     private String generateCode() {

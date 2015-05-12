@@ -1,10 +1,10 @@
-package org.lamedh.pos.app.rest;
+package org.lamedh.pos;
 
-import org.lamedh.pos.app.rest.domain.Address;
-import org.lamedh.pos.app.rest.domain.Employee;
-import org.lamedh.pos.app.rest.domain.repo.EmployeeRepository;
-import org.lamedh.pos.app.rest.domain.Product;
-import org.lamedh.pos.app.rest.domain.repo.ProductRepository;
+import org.lamedh.pos.domain.Address;
+import org.lamedh.pos.domain.Employee;
+import org.lamedh.pos.domain.repo.EmployeeRepository;
+import org.lamedh.pos.domain.Product;
+import org.lamedh.pos.domain.repo.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -18,6 +18,7 @@ import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConvert
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Configuration
 @EnableAutoConfiguration
@@ -79,7 +80,7 @@ public class PosApplication {
 }
 
 @Configuration
-class WebMVCConfig extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {
+class WebMvcConfig extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {
 
     @Override
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
@@ -87,9 +88,9 @@ class WebMVCConfig extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapte
         List<HttpMessageConverter<?>> baseConverters = new ArrayList<>();
         super.configureMessageConverters(baseConverters);
 
-        for(HttpMessageConverter<?> c : baseConverters)
-            if (!(c instanceof Jaxb2RootElementHttpMessageConverter))
-                converters.add(c);
+        converters.addAll(baseConverters.stream()
+                .filter(c -> !(c instanceof Jaxb2RootElementHttpMessageConverter))
+                .collect(Collectors.toList()));
     }
 
 }

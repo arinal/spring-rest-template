@@ -1,6 +1,5 @@
-package org.lamedh.pos.app.rest.app.rest.tools;
+package org.lamedh.pos.app.rest.tools;
 
-import org.lamedh.pos.app.rest.app.rest.tools.NotFoundException;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;

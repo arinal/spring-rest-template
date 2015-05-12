@@ -2,8 +2,8 @@ package org.lamedh.pos.app.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
-import org.lamedh.pos.app.rest.domain.Address;
-import org.lamedh.pos.app.rest.domain.Employee;
+import org.lamedh.pos.domain.Address;
+import org.lamedh.pos.domain.Employee;
 
 import java.io.IOException;
 

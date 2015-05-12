@@ -1,4 +1,4 @@
-package org.lamedh.pos.app.rest.domain;
+package org.lamedh.pos.domain;
 
 import javax.persistence.Embeddable;
 

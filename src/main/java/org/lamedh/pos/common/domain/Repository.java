@@ -1,6 +1,5 @@
-package org.lamedh.pos.app.rest.domain.repo;
+package org.lamedh.pos.common.domain;
 
-import org.lamedh.pos.app.rest.common.EntityBase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 

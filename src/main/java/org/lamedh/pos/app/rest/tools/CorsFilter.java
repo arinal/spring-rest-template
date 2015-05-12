@@ -1,4 +1,4 @@
-package org.lamedh.pos.app.rest.app.rest.tools;
+package org.lamedh.pos.app.rest.tools;
 
 import org.springframework.stereotype.Component;
 
@@ -21,3 +21,5 @@ public class CorsFilter implements Filter {
     public void init(FilterConfig filterConfig) {}
     public void destroy() {}
 }
+
+
