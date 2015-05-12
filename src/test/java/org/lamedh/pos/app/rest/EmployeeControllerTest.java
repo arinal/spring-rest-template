@@ -1,10 +1,11 @@
-package org.lamedh.pos;
+package org.lamedh.pos.app.rest;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.lamedh.pos.domain.Employee;
-import org.lamedh.pos.domain.repo.EmployeeRepository;
+import org.lamedh.pos.app.rest.domain.repo.EmployeeRepository;
+import org.lamedh.pos.app.rest.domain.Address;
+import org.lamedh.pos.app.rest.domain.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -63,6 +64,7 @@ public class EmployeeControllerTest {
     @Test
     public void createEmployee() throws Exception {
         Employee newEmployee = new Employee();
+        newEmployee.setAddress(new Address("Akihabara", "342", "Shibuya"));
         String json = json(newEmployee);
         this.mockMvc.perform(post("/employee")
                 .contentType(contentType)

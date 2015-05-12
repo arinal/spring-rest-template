@@ -1,8 +1,8 @@
-package org.lamedh.pos.domain;
+package org.lamedh.pos.app.rest.domain;
 
+import org.lamedh.pos.app.rest.domain.repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.lamedh.pos.domain.repo.EmployeeRepository;
 
 import java.util.Optional;
 

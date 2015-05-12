@@ -1,4 +1,4 @@
-package org.lamedh.pos.app.rest.tools;
+package org.lamedh.pos.app.rest.app.rest.tools;
 
 import org.springframework.stereotype.Component;
 

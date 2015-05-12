@@ -1,4 +1,4 @@
-package org.lamedh.pos.app.rest.tools;
+package org.lamedh.pos.app.rest.app.rest.tools;
 
 public class NotFoundException extends RuntimeException {
     public NotFoundException(int id) {

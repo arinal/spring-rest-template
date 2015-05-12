@@ -43,6 +43,7 @@ dependencies {
 
     testCompile "com.jayway.jsonpath:json-path-assert:0.5.5"
     testCompile "com.jayway.jsonpath:json-path:0.9.1"
+    testCompile 'org.assertj:assertj-core:3.0.0'
     testCompile "org.springframework.boot:spring-boot-starter-test"
 }
 

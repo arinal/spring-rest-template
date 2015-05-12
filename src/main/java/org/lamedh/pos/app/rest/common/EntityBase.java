@@ -1,4 +1,4 @@
-package org.lamedh.pos.common;
+package org.lamedh.pos.app.rest.common;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
