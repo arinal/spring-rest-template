@@ -1,16 +1,15 @@
 package org.lamedh.pos;
 
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.lamedh.pos.domain.Employee;
 import org.lamedh.pos.domain.Product;
 import org.lamedh.pos.domain.repo.EmployeeRepository;
 import org.lamedh.pos.domain.repo.ProductRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 import java.util.Arrays;
 
@@ -51,6 +50,6 @@ public class PosApplication {
     }
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext ctx = SpringApplication.run(PosApplication.class, args);
+        SpringApplication.run(PosApplication.class, args);
     }
 }

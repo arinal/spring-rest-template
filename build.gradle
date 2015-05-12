@@ -37,6 +37,7 @@ dependencies {
 //    compile("org.springframework.boot:spring-boot-starter-websocket")
 
     compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr353:2.4.4"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.4.4"
 
     runtime "com.h2database:h2"
 
