@@ -4,9 +4,9 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Address {
-    private String street;
-    private String zip;
-    private String country;
+    private final String street;
+    private final String zip;
+    private final String country;
 
     public String getStreet() {
         return street;
@@ -26,5 +26,5 @@ public class Address {
         this.country = country;
     }
 
-    Address() {}
+    Address() { this(null, null, null); }
 }

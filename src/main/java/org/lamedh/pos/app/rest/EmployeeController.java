@@ -11,16 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/employee")
-public class EmployeeController extends RestControllerBase<Employee, EmployeeService, EmployeeResource> {
+public class EmployeeController extends RestControllerBase<Employee, EmployeeService> {
 
     @Autowired
     public EmployeeController(EmployeeService service) {
-        super(service, new EmployeeAssembler());
-    }
-
-    @Override
-    protected EmployeeResource createResource(Employee employee) {
-        return new EmployeeResource(employee);
+        super(service, new EmployeeAssembler(), EmployeeResource::new);
     }
 }
 

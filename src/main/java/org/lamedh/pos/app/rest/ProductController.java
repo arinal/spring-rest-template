@@ -10,14 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
-public class ProductController extends RestControllerBase<Product, ProductService, ProductResource> {
+public class ProductController extends RestControllerBase<Product, ProductService> {
+
     @Autowired
     public ProductController(ProductService service) {
-        super(service, new ProductAssembler());
-    }
-
-    @Override
-    protected ProductResource createResource(Product product) {
-        return new ProductResource(product);
+        super(service, new ProductAssembler(), ProductResource::new);
     }
 }

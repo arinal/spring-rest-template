@@ -20,21 +20,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.net.URI;
+import java.util.function.Function;
 
-public abstract class RestControllerBase<TEntity extends EntityBase, TService extends DomainService<TEntity>, TResource extends HateoasResource> {
+public abstract class RestControllerBase<TEntity extends EntityBase, TService extends DomainService<TEntity>> {
     private final ResourceAssemblerSupport entityAssembler;
     private final TService service;
+    private final Function<TEntity, HateoasResource> wrapWithResource;
 
-    protected RestControllerBase(TService service, ResourceAssemblerSupport entityAssembler) {
+    protected RestControllerBase(TService service, ResourceAssemblerSupport entityAssembler,
+                                 Function<TEntity, HateoasResource> wrapWithResource) {
         this.service = service;
         this.entityAssembler = entityAssembler;
+        this.wrapWithResource = wrapWithResource;
     }
 
     @RequestMapping({"/{id}"})
-    public TResource get(@PathVariable int id) {
+    public HateoasResource get(@PathVariable int id) {
         TEntity entity = id == 0? service.create(): this.service.getById(id)
                 .orElseThrow(() -> new NotFoundException(id));
-        return createResource(entity);
+        return wrapWithResource.apply(entity);
     }
 
     @RequestMapping
@@ -48,7 +52,7 @@ public abstract class RestControllerBase<TEntity extends EntityBase, TService ex
     ResponseEntity<?> save(@RequestBody TEntity entity) {
         int id = entity.getId();
         TEntity saved = service.save(entity);
-        Link link = createResource(saved).getLink("self");
+        Link link = wrapWithResource.apply(saved).getLink("self");
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setLocation(URI.create(link.getHref()));
         return new ResponseEntity(httpHeaders, id == 0? HttpStatus.CREATED : HttpStatus.OK);
@@ -56,9 +60,7 @@ public abstract class RestControllerBase<TEntity extends EntityBase, TService ex
 
     @RequestMapping(method = RequestMethod.DELETE)
     ResponseEntity<?> delete(@PathVariable int id) {
-        this.service.delete(id);
+        service.delete(id);
         return new ResponseEntity(HttpStatus.OK);
     }
-
-    protected abstract TResource createResource(TEntity entity);
 }

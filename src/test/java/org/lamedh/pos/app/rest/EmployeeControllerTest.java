@@ -115,10 +115,9 @@ public class EmployeeControllerTest {
         assertNotNull("the JSON message converter must not be null", json2Http);
     }
 
-	private MockMvc mockMvc;
 	private Employee suyama;
     private Employee nancy;
-
+    private MockMvc mockMvc;
     private HttpMessageConverter json2Http;
 
 	@Autowired

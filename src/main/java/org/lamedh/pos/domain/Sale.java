@@ -58,17 +58,16 @@ public class Sale extends EntityBase {
         sli.addQuantity(quantity);
     }
 
-    private SaleLineItem addLineItem(SaleLineItem saleLineItem) {
-        lineItems.add(saleLineItem);
-        return saleLineItem;
+    public BigDecimal getTotal() {
+        return lineItems.stream().map(sli -> sli.getSubTotal()).reduce(BigDecimal.ZERO,  (a, b) -> a.add(b));
     }
 
     public Optional<SaleLineItem> getByProduct(Product product) {
-        Optional<SaleLineItem> salel = lineItems.stream().filter(sli -> sli.getProduct().equals(product)).findFirst();
-        return salel;
+        return lineItems.stream().filter(sli -> sli.getProduct().equals(product)).findFirst();
     }
 
-    public BigDecimal getTotal() {
-        return lineItems.stream().map(sli -> sli.getSubTotal()).reduce(BigDecimal.ZERO,  (a, b) -> a.add(b));
+    private SaleLineItem addLineItem(SaleLineItem saleLineItem) {
+        lineItems.add(saleLineItem);
+        return saleLineItem;
     }
 }
