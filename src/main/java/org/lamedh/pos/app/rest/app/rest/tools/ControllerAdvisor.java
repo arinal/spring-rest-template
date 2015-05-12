@@ -1,4 +1,4 @@
-package org.lamedh.pos.app.rest.app.rest;
+package org.lamedh.pos.app.rest.app.rest.tools;
 
 import org.lamedh.pos.app.rest.app.rest.tools.NotFoundException;
 import org.springframework.hateoas.VndErrors;

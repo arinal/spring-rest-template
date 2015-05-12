@@ -44,21 +44,22 @@ public class EmployeeControllerTest {
     public void getEmployeeById() throws Exception {
         mockMvc.perform(get("/employee/" + suyama.getId()))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$.id", is(suyama.getId())))
-                .andExpect(jsonPath("$.name", is(suyama.getName())));
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath("$content.id", is(suyama.getId())))
+                .andExpect(jsonPath("$content.name", is(suyama.getName())));
     }
 
     @Test
     public void getEmployees() throws Exception {
+        String employeesPath = "$._embedded.employeeList";
         mockMvc.perform(get("/employee"))
                 .andExpect(status().isOk())
-                .andExpect(content().contentType(contentType))
-                .andExpect(jsonPath("$", hasSize(2)))
-                .andExpect(jsonPath("$[0].id", is(suyama.getId())))
-                .andExpect(jsonPath("$[0].name", is(suyama.getName())))
-                .andExpect(jsonPath("$[1].id", is(nancy.getId())))
-                .andExpect(jsonPath("$[1].name", is(nancy.getName())));
+                .andExpect(content().contentType("application/hal+json"))
+                .andExpect(jsonPath(employeesPath, hasSize(2)))
+                .andExpect(jsonPath(employeesPath + "[0].id", is(suyama.getId())))
+                .andExpect(jsonPath(employeesPath + "[0].name", is(suyama.getName())))
+                .andExpect(jsonPath(employeesPath + "[1].id", is(nancy.getId())))
+                .andExpect(jsonPath(employeesPath + "[1].name", is(nancy.getName())));
     }
 
     @Test
@@ -67,7 +68,7 @@ public class EmployeeControllerTest {
         newEmployee.setAddress(new Address("Akihabara", "342", "Shibuya"));
         String json = json(newEmployee);
         this.mockMvc.perform(post("/employee")
-                .contentType(contentType)
+                .contentType("application/json")
                 .content(json))
                 .andExpect(status().isCreated());
     }
@@ -107,8 +108,6 @@ public class EmployeeControllerTest {
 	private Employee suyama;
     private Employee nancy;
 
-    private MediaType contentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
-                MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
     private HttpMessageConverter json2Http;
 
 	@Autowired

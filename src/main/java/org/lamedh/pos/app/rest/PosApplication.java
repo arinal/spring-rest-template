@@ -9,10 +9,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableAutoConfiguration
@@ -40,19 +45,51 @@ public class PosApplication {
 
             Employee suyama = new Employee();
             suyama.setCode("E01");
-            suyama.setName("Suyama");
+            suyama.setName("Michael Suyama");
             suyama.setAddress(new Address("Akihabara", "234", "Japan"));
 
             Employee nancy = new Employee();
             nancy.setCode("E02");
-            nancy.setName("Nancy");
-            suyama.setAddress(new Address("Pisa", "346", "Italy"));
+            nancy.setName("Nancy DaVolio");
+            nancy.setAddress(new Address("Pisa", "346", "Italy"));
 
-            employeeRepository.save(Arrays.asList(suyama, nancy));
+            Employee andrew = new Employee();
+            andrew.setCode("E03");
+            andrew.setName("Andrew Fuller");
+
+            Employee janet = new Employee();
+            janet.setCode("E04");
+            janet.setName("Janet Leverling");
+
+            Employee margy = new Employee();
+            margy.setCode("E05");
+            margy.setName("Margareth Peacock");
+
+            Employee buchanan = new Employee();
+            buchanan.setCode("E06");
+            buchanan.setName("David Buchanan");
+
+            employeeRepository.save(Arrays.asList(suyama, nancy, andrew, janet, margy, buchanan));
         };
     }
 
     public static void main(String[] args) {
         SpringApplication.run(PosApplication.class, args);
     }
+}
+
+@Configuration
+class WebMVCConfig extends WebMvcAutoConfiguration.WebMvcAutoConfigurationAdapter {
+
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        //Remove the Jaxb2 that is automatically added because some other dependency brings it into the classpath
+        List<HttpMessageConverter<?>> baseConverters = new ArrayList<>();
+        super.configureMessageConverters(baseConverters);
+
+        for(HttpMessageConverter<?> c : baseConverters)
+            if (!(c instanceof Jaxb2RootElementHttpMessageConverter))
+                converters.add(c);
+    }
+
 }

@@ -2,6 +2,8 @@ package org.lamedh.pos.app.rest.domain;
 
 import org.lamedh.pos.app.rest.domain.repo.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -31,8 +33,8 @@ public class EmployeeService {
         return employeeRepo.getById(id);
     }
 
-    public Iterable<Employee> getAll() {
-        return employeeRepo.findAll();
+    public Page<Employee> getAll(Pageable page) {
+        return employeeRepo.findAll(page);
     }
 
     private String generateCode() {
