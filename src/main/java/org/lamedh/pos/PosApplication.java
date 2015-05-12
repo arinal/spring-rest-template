@@ -13,9 +13,11 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.WebMvcAutoConfiguration;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 
@@ -29,6 +31,7 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class PosApplication {
     @Bean
+    @Profile("QA")
     CommandLineRunner init(ProductRepository productRepository, EmployeeRepository employeeRepository,
                            SaleRepository saleRepository) {
         return evt -> {
@@ -84,31 +87,29 @@ public class PosApplication {
             buchanan.setName("David Buchanan");
             buchanan = employeeRepository.save(buchanan);
 
-//            Sale s01 = new Sale();
-//            s01.setCashier(suyama);
-//            s01.addLineItem(momogi, 2);
-//            s01.addLineItem(pepsi, 1);
-//
-//            Sale s02 = new Sale();
-//            s02.setCashier(nancy);
-//            s02.addLineItem(ayam, 1);
-//            s02.addLineItem(pepsi, 1);
-//
-//            Sale s03 = new Sale();
-//            s03.setCashier(buchanan);
-//            s03.addLineItem(momogi, 2);
-//            s03.addLineItem(ayam, 1);
-//
-//            saleRepository.save(Arrays.asList(s01, s02, s03));
+            Sale s01 = new Sale();
+            s01.setCashier(suyama);
+            s01.addLineItem(momogi, 2);
+            s01.addLineItem(pepsi, 1);
+
+            Sale s02 = new Sale();
+            s02.setCashier(nancy);
+            s02.addLineItem(ayam, 1);
+            s02.addLineItem(pepsi, 1);
+
+            Sale s03 = new Sale();
+            s03.setCashier(buchanan);
+            s03.addLineItem(momogi, 2);
+            s03.addLineItem(ayam, 1);
+
+            saleRepository.save(Arrays.asList(s01, s02, s03));
         };
     }
 
     public static void main(String[] args) {
-        ApplicationContext ctx = SpringApplication.run(PosApplication.class, args);
-        SaleRepository repo = ctx.getBean(SaleRepository.class);
-        Sale s01 = repo.findOne(1);
-        System.out.println(s01.getCashier().getName());
-        System.out.println(s01.getTotal());
+        SpringApplication app = new SpringApplication(PosApplication.class);
+        app.setAdditionalProfiles("QA");
+        ConfigurableApplicationContext ctx = app.run(args);
     }
 }
 

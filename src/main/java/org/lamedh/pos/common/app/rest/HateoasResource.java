@@ -14,7 +14,7 @@ public abstract class HateoasResource<TEntity extends EntityBase> extends Resour
 
     public HateoasResource(TEntity entity, Class<? extends RestControllerBase> controllerClass) {
         this.entity = entity;
-        this.add(ControllerLinkBuilder.linkTo(controllerClass.getClass()).withRel("employees"));
+        this.add(ControllerLinkBuilder.linkTo(controllerClass).withRel("all"));
         this.add(ControllerLinkBuilder.linkTo(
                 ControllerLinkBuilder.methodOn(controllerClass).get(entity.getId())).withSelfRel());
     }

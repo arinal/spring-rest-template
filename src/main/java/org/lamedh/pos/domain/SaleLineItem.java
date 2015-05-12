@@ -40,6 +40,8 @@ public class SaleLineItem extends EntityBase {
         setQuantity(quantity);
     }
 
+    SaleLineItem() { }
+
     public BigDecimal getSubTotal() {
         return unitPrice.multiply(BigDecimal.valueOf(quantity));
     }

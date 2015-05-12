@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 import static org.lamedh.pos.common.iterable.IterableCommon.stream;
 
-public class EntityAssembler<TEntity extends EntityBase> extends ResourceAssemblerSupport<TEntity, Resource> {
+public class HateoasAssembler<TEntity extends EntityBase> extends ResourceAssemblerSupport<TEntity, Resource> {
 
     private final Function<TEntity, HateoasResource> wrapWithResource;
-    private final Class<?> controllerClass;
+    Class<?> controllerClass;
 
-    public EntityAssembler(Class<?> controllerClass, Function<TEntity, HateoasResource> wrapWithResource) {
+    public HateoasAssembler(Class<?> controllerClass, Function<TEntity, HateoasResource> wrapWithResource) {
         super(controllerClass, Resource.class);
         this.wrapWithResource = wrapWithResource;
         this.controllerClass = controllerClass;
