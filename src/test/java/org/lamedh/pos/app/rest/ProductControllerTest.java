@@ -9,6 +9,7 @@ import org.lamedh.pos.domain.Address;
 import org.lamedh.pos.domain.Employee;
 import org.lamedh.pos.domain.Product;
 import org.lamedh.pos.domain.repo.ProductRepository;
+import org.lamedh.pos.domain.repo.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -124,6 +125,8 @@ public class ProductControllerTest {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private SaleRepository saleRepository;
     @Autowired
     private WebApplicationContext webApplicationContext;
 }

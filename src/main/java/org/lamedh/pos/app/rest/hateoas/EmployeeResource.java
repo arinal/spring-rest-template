@@ -4,9 +4,9 @@ import org.lamedh.pos.app.rest.EmployeeController;
 import org.lamedh.pos.common.app.rest.HateoasResource;
 import org.lamedh.pos.domain.Employee;
 
-public class EmployeeResource extends HateoasResource<Employee, EmployeeController> {
+public class EmployeeResource extends HateoasResource<Employee> {
     public EmployeeResource(Employee employee) {
-        super(employee, new EmployeeController(null));
+        super(employee, EmployeeController.class);
     }
 }
 

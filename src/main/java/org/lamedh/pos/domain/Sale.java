@@ -2,6 +2,7 @@ package org.lamedh.pos.domain;
 
 import org.lamedh.pos.common.domain.EntityBase;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,7 +18,7 @@ public class Sale extends EntityBase {
     @ManyToOne
     private Employee cashier;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<SaleLineItem> lineItems;
 
     public String getCode() {

@@ -8,6 +8,7 @@ import org.lamedh.pos.PosApplication;
 import org.lamedh.pos.domain.Address;
 import org.lamedh.pos.domain.Employee;
 import org.lamedh.pos.domain.repo.EmployeeRepository;
+import org.lamedh.pos.domain.repo.SaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -94,7 +95,7 @@ public class EmployeeControllerTest {
 	public void setup() throws Exception {
 		mockMvc = webAppContextSetup(webApplicationContext).build();
 
-		employeeRepository.deleteAllInBatch();
+        employeeRepository.deleteAllInBatch();
 
 		suyama = new Employee();
 		suyama.setCode("E01");
@@ -122,6 +123,9 @@ public class EmployeeControllerTest {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	@Autowired
+    @Autowired
+    private SaleRepository saleRepository;
+
+    @Autowired
 	private WebApplicationContext webApplicationContext;
 }
