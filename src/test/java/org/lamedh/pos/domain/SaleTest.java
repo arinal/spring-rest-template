@@ -2,8 +2,14 @@ package org.lamedh.pos.domain;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.lamedh.pos.domain.product.Product;
+import org.lamedh.pos.domain.sale.Sale;
+import org.lamedh.pos.domain.sale.SaleLineItem;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.lamedh.common.iterable.IterableCommon.stream;
 
 public class SaleTest {
 
@@ -39,9 +45,24 @@ public class SaleTest {
         sale.addLineItem(momogi, 2);
         sale.addLineItem(pepsi, 1);
 
-        assertThat(sale.getLineItems().stream().count()).isEqualTo(2);
+        assertThat(stream(sale.getLineItems()).count()).isEqualTo(2);
         sale.addLineItem(momogi, 1);
-        assertThat(sale.getLineItems().stream().count()).isEqualTo(2);
+        assertThat(stream(sale.getLineItems()).count()).isEqualTo(2);
+        assertThat(sale.getLineItems()).extracting("quantity").contains(3, 1);
+    }
+
+    @Test
+    public void add_2_momogi_1_momogi_and_1_pepsi_when_group_is_performed_then_3_momogi_and_1_pepsi() {
+        Sale sale = new Sale();
+
+        List<SaleLineItem> lineItems = (List<SaleLineItem>) sale.getLineItems();
+        lineItems.add(new SaleLineItem(momogi, 2));
+        lineItems.add(new SaleLineItem(momogi, 1));
+        lineItems.add(new SaleLineItem(pepsi, 1));
+        assertThat(lineItems.size()).isEqualTo(3);
+
+        sale.doGroupLineItems();
+        assertThat(lineItems.size()).isEqualTo(2);
         assertThat(sale.getLineItems()).extracting("quantity").contains(3, 1);
     }
 

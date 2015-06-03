@@ -4,11 +4,10 @@ import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.lamedh.pos.PosApplication;
-import org.lamedh.pos.domain.Address;
-import org.lamedh.pos.domain.Employee;
-import org.lamedh.pos.domain.repo.EmployeeRepository;
-import org.lamedh.pos.domain.repo.SaleRepository;
+import org.lamedh.pos.ApplicationConfig;
+import org.lamedh.pos.domain.employee.Address;
+import org.lamedh.pos.domain.employee.Employee;
+import org.lamedh.pos.domain.employee.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
@@ -32,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = PosApplication.class)
+@SpringApplicationConfiguration(classes = ApplicationConfig.class)
 @WebAppConfiguration
 public class EmployeeControllerTest {
 
@@ -47,8 +46,8 @@ public class EmployeeControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/employee/" + suyama.getId()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/hal+json"))
-                .andExpect(jsonPath("$content.id", Matchers.is(suyama.getId())))
-                .andExpect(jsonPath("$content.name", Matchers.is(suyama.getName())));
+                .andExpect(jsonPath("$.id", Matchers.is(suyama.getId())))
+                .andExpect(jsonPath("$.name", Matchers.is(suyama.getName())));
     }
 
     @Test
@@ -65,7 +64,7 @@ public class EmployeeControllerTest {
     }
 
     @Test
-    public void createEmployee() throws Exception {
+    public void postEmployee() throws Exception {
         Employee newEmployee = new Employee();
         newEmployee.setAddress(new Address("Akihabara", "342", "Shibuya"));
         String json = json(newEmployee);
@@ -95,7 +94,7 @@ public class EmployeeControllerTest {
 	public void setup() throws Exception {
 		mockMvc = webAppContextSetup(webApplicationContext).build();
 
-        employeeRepository.deleteAllInBatch();
+        employeeRepository.deleteAll();
 
 		suyama = new Employee();
 		suyama.setCode("E01");
@@ -123,8 +122,6 @@ public class EmployeeControllerTest {
 
 	@Autowired
 	private EmployeeRepository employeeRepository;
-    @Autowired
-    private SaleRepository saleRepository;
 
     @Autowired
 	private WebApplicationContext webApplicationContext;
