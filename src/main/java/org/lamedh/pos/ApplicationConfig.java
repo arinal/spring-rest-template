@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
 @Configuration
@@ -50,12 +51,14 @@ public class ApplicationConfig {
             Employee suyama = new Employee();
             suyama.setCode("E01");
             suyama.setName("Michael Suyama");
+            suyama.setBirthDate(LocalDate.of(1970, 4, 15));
             suyama.setAddress(new Address("Akihabara", "234", "Japan"));
             suyama = employeeRepository.save(suyama);
 
             Employee nancy = new Employee();
             nancy.setCode("E02");
             nancy.setName("Nancy DaVolio");
+            nancy.setBirthDate(LocalDate.of(1975, 12, 20));
             nancy.setAddress(new Address("Pisa", "346", "Italy"));
             nancy.setGender(Gender.Female);
             nancy = employeeRepository.save(nancy);
