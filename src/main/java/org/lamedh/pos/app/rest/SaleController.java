@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController @RequestMapping("/sale")
-public class SaleController extends RestControllerBase<Sale> {
+class SaleController extends RestControllerBase<Sale> {
     @Autowired
     public SaleController(SaleService service) {
         super(service);

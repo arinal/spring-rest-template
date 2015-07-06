@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController @RequestMapping("/employee")
-public class EmployeeController extends RestControllerBase<Employee> {
+class EmployeeController extends RestControllerBase<Employee> {
     @Autowired
     public EmployeeController(EmployeeService service) {
         super(service);
     }
 }
-

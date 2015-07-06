@@ -8,7 +8,7 @@ import java.util.Optional;
 public class DomainServiceBase<TEntity extends EntityBase> implements  DomainService<TEntity> {
 
     private Class<TEntity> entityClass;
-    private Repository<TEntity> repository;
+    protected Repository<TEntity> repository;
 
     public DomainServiceBase(Class<TEntity> entityClass, Repository<TEntity> repository) {
         this.entityClass = entityClass;
@@ -31,8 +31,14 @@ public class DomainServiceBase<TEntity extends EntityBase> implements  DomainSer
     }
 
     @Override
+    public Page<TEntity> getAll(String search, Pageable page) {
+        return search == null || search.isEmpty()?
+                repository.findAll(page) : repository.findAll(search, page);
+    }
+
+    @Override
     public Page<TEntity> getAll(Pageable page) {
-        return repository.findAll(page);
+        return getAll("", page);
     }
 
     @Override

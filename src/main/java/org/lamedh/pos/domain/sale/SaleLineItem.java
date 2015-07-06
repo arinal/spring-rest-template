@@ -20,7 +20,8 @@ public class SaleLineItem extends EntityBase {
     }
 
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        if (quantity > 0)
+            this.quantity = quantity;
     }
 
     public Product getProduct() {
@@ -43,7 +44,7 @@ public class SaleLineItem extends EntityBase {
 
     SaleLineItem() { }
 
-    public BigDecimal getSubTotal() {
+    public BigDecimal getSubtotal() {
         return unitPrice.multiply(BigDecimal.valueOf(quantity));
     }
 

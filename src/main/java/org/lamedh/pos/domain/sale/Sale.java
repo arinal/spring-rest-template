@@ -67,7 +67,7 @@ public class Sale extends EntityBase {
     }
 
     public BigDecimal getTotal() {
-        return lineItems.stream().map(sli -> sli.getSubTotal()).reduce(BigDecimal.ZERO,  (a, b) -> a.add(b));
+        return lineItems.stream().map(sli -> sli.getSubtotal()).reduce(BigDecimal.ZERO,  (a, b) -> a.add(b));
     }
 
     public Optional<SaleLineItem> getByProduct(Product product) {

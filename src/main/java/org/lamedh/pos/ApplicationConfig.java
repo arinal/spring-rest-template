@@ -86,16 +86,19 @@ public class ApplicationConfig {
             buchanan = employeeRepository.save(buchanan);
 
             Sale s01 = new Sale();
+            s01.setCode("S01");
             s01.setCashier(suyama);
             s01.addLineItem(momogi, 2);
             s01.addLineItem(pepsi, 1);
 
             Sale s02 = new Sale();
+            s02.setCode("S02");
             s02.setCashier(nancy);
             s02.addLineItem(ayam, 1);
             s02.addLineItem(pepsi, 1);
 
             Sale s03 = new Sale();
+            s03.setCode("S03");
             s03.setCashier(buchanan);
             s03.addLineItem(momogi, 2);
             s03.addLineItem(ayam, 1);
