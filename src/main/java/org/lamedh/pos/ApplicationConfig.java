@@ -9,10 +9,8 @@ import org.lamedh.pos.domain.employee.EmployeeRepository;
 import org.lamedh.pos.domain.product.ProductRepository;
 import org.lamedh.pos.domain.sale.SaleRepository;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -31,22 +29,40 @@ public class ApplicationConfig {
             Product momogi = new Product();
             momogi.setCode("P01");
             momogi.setName("Momogi");
-            momogi.setUnitPriceByInt(500);
+            momogi.setUnitPriceByLong(500);
             momogi = productRepository.save(momogi);
 
             Product pepsi = new Product();
             pepsi.setCode("P02");
             pepsi.setName("Pepsi");
-            pepsi.setUnitPriceByInt(5000);
+            pepsi.setUnitPriceByLong(5000);
             pepsi = productRepository.save(pepsi);
 
             Product ayam = new Product();
             ayam.setCode("P03");
             ayam.setName("Ayam");
-            ayam.setUnitPriceByInt(50000);
+            ayam.setUnitPriceByLong(50_000);
             ayam = productRepository.save(momogi);
 
-            productRepository.save(Arrays.asList(momogi, pepsi, ayam));
+            Product xiao = new Product();
+            xiao.setCode("P04");
+            xiao.setName("Xiao Long Bao");
+            xiao.setUnitPriceByLong(40_000);
+            xiao = productRepository.save(xiao);
+
+            Product maybach = new Product();
+            maybach.setCode("P05");
+            maybach.setName("Maybach");
+            maybach.setUnitPriceByLong(9_000_000_000L);
+            maybach= productRepository.save(maybach);
+
+            Product windows = new Product();
+            windows.setCode("P06");
+            windows.setName("Windows 10");
+            windows.setUnitPriceByLong(500_000);
+            windows = productRepository.save(windows);
+
+            productRepository.save(Arrays.asList(momogi, pepsi, ayam, xiao, maybach, windows));
 
             Employee suyama = new Employee();
             suyama.setCode("E01");
@@ -96,14 +112,20 @@ public class ApplicationConfig {
             s02.setCashier(nancy);
             s02.addLineItem(ayam, 1);
             s02.addLineItem(pepsi, 1);
+            s02.addLineItem(xiao, 1);
 
             Sale s03 = new Sale();
             s03.setCode("S03");
             s03.setCashier(buchanan);
-            s03.addLineItem(momogi, 2);
-            s03.addLineItem(ayam, 1);
+            s03.addLineItem(maybach, 1);
 
-            saleRepository.save(Arrays.asList(s01, s02, s03));
+            Sale s04 = new Sale();
+            s04.setCode("S04");
+            s04.setCashier(margy);
+            s04.addLineItem(windows, 2);
+            s04.addLineItem(xiao, 2);
+
+            saleRepository.save(Arrays.asList(s01, s02, s03, s04));
         };
     }
 }

@@ -35,7 +35,7 @@ public class Product extends EntityBase {
         this.unitPrice = unitPrice;
     }
 
-    public void setUnitPriceByInt(int unitPriceInt) {
+    public void setUnitPriceByLong(long unitPriceInt) {
         setUnitPrice(BigDecimal.valueOf(unitPriceInt));
     }
 }

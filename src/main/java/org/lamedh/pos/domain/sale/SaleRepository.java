@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface SaleRepository extends Repository<Sale> {
-    @Query("from Sale e where e.cashier.name like ?1%")
+    @Query("from Sale e where e.code like ?1% or e.cashier.name like ?1%")
     Page<Sale> findAll(String search, Pageable page);
 }

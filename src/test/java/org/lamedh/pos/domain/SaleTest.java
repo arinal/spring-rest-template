@@ -35,7 +35,7 @@ public class SaleTest {
         sale.addLineItem(momogi, 1);
 
         assertThat(sale.getTotal().intValue()).isEqualTo(500);
-        momogi.setUnitPriceByInt(300);
+        momogi.setUnitPriceByLong(300);
         assertThat(sale.getTotal().intValue()).isEqualTo(500);
     }
 
@@ -72,19 +72,19 @@ public class SaleTest {
         momogi.setId(1);
         momogi.setCode("P01");
         momogi.setName("Momogi");
-        momogi.setUnitPriceByInt(500);
+        momogi.setUnitPriceByLong(500);
 
         pepsi = new Product();
         pepsi.setId(2);
         pepsi.setCode("P02");
         pepsi.setName("Pepsi");
-        pepsi.setUnitPriceByInt(5000);
+        pepsi.setUnitPriceByLong(5000);
 
         ayam = new Product();
         ayam.setId(3);
         ayam.setCode("P03");
         ayam.setName("Ayam");
-        ayam.setUnitPriceByInt(50000);
+        ayam.setUnitPriceByLong(50000);
     }
 
     private Product momogi;

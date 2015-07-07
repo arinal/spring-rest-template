@@ -1,5 +1,5 @@
 # spring-rest-platform
-A showcase for building LOB application's common pattern like:
+A showcase for building LOB application's common patterns:
 - Master details.
 - Search item.
 - Login with OAuth.
